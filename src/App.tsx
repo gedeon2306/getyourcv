@@ -4,7 +4,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { CvList } from './pages/CvList';
 import { CreateCv } from './pages/CreateCv';
-
+import { CvPreview } from './pages/CvPreview';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { token } = useAuth();
@@ -37,7 +37,14 @@ function AppRoutes() {
           }
         />
 
-
+          <Route
+            path="/cvs/:id"
+            element={
+              <ProtectedRoute>
+                <CvPreview />
+              </ProtectedRoute>
+            }
+          />
 
     </Routes>
   );

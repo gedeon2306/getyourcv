@@ -33,25 +33,25 @@ export function CvList() {
     return <p>Chargement...</p>;
   }
 
-  return (
-    <div>
-      <h2>Mes CV</h2>
-      <button onClick={logout}>Se déconnecter</button>
-       <Link to="/cvs/new">Créer un nouveau CV</Link>
+return (
+  <div>
+    <h2>Mes CV</h2>
+    <button onClick={logout}>Se déconnecter</button>
+    <Link to="/cvs/new">Créer un nouveau CV</Link>
 
-      {cvs.length === 0 ? (
-        <p>Aucun CV pour l'instant.</p>
-      ) : (
-        <ul>
-          {cvs.map((cv) => (
-            <li key={cv.id}>
-              {cv.prenom} {cv.nom} — {cv.email}
-              <button onClick={() => handleDelete(cv.id)}>Supprimer</button>
-             
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+    {cvs.length === 0 ? (
+      <p>Aucun CV pour l'instant.</p>
+    ) : (
+      <ul>
+        {cvs.map((cv) => (
+          <li key={cv.id}>
+            {cv.prenom} {cv.nom} — {cv.email}
+            <button onClick={() => handleDelete(cv.id)}>Supprimer</button>
+            <Link to={`/cvs/${cv.id}`}>Aperçu</Link>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+);
 }
