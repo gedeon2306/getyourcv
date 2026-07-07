@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCvById } from '../api/cvApi';
 import type { CvDto } from '../types/cv';
 import { ClassicTemplate } from '../templates/ClassicTemplate';
 import { ModernTemplate } from '../templates/ModernTemplate';
+import { getCvById, downloadCvPdf } from '../api/cvApi';
 
 type TemplateKey = 'classic' | 'modern';
 
@@ -24,15 +24,24 @@ export function CvPreview() {
   if (chargement) return <p>Chargement...</p>;
   if (!cv) return <p>CV introuvable.</p>;
 
-  return (
-    <div>
-      <div style={{ padding: 20, textAlign: 'center' }}>
-        <button onClick={() => setTemplate('classic')}>Modèle Classique</button>
-        <button onClick={() => setTemplate('modern')}>Modèle Moderne</button>
-      </div>
+return (
+  <div className="page" style={{ maxWidth: 900 }}>
+    <div className="header-bar">
+      <button onClick={() => setTemplate('classic')} className={template === 'classic' ? 'btn btn-primary' : 'btn btn-secondary'}>
+        Modèle Classique
+      </button>
+      <button onClick={() => setTemplate('modern')} className={template === 'modern' ? 'btn btn-primary' : 'btn btn-secondary'}>
+        Modèle Moderne
+      </button>
+      <button onClick={() => downloadCvPdf(cv.id)} className="btn btn-primary">
+        Télécharger en PDF
+      </button>
+    </div>
 
+    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
       {template === 'classic' && <ClassicTemplate cv={cv} />}
       {template === 'modern' && <ModernTemplate cv={cv} />}
     </div>
-  );
+  </div>
+);
 }

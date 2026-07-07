@@ -34,23 +34,44 @@ export function CvList() {
   }
 
 return (
-  <div>
-    <h2>Mes CV</h2>
-    <button onClick={logout}>Se déconnecter</button>
-    <Link to="/cvs/new">Créer un nouveau CV</Link>
+  <div className="page">
+    <div className="header-bar">
+      <h2 style={{ color: 'var(--paper)', margin: 0 }}>Mes CV</h2>
+      <button onClick={logout} className="btn btn-secondary">Se déconnecter</button>
+    </div>
+
+    <div style={{ marginBottom: 20 }}>
+      <Link to="/cvs/new" className="btn btn-primary" style={{ textDecoration: 'none', display: 'inline-block' }}>
+        + Créer un nouveau CV
+      </Link>
+    </div>
 
     {cvs.length === 0 ? (
-      <p>Aucun CV pour l'instant.</p>
+      <div className="card">
+        <p style={{ margin: 0, color: 'var(--muted)' }}>Aucun CV pour l'instant. Créez-en un pour commencer.</p>
+      </div>
     ) : (
-      <ul>
+      <div>
         {cvs.map((cv) => (
-          <li key={cv.id}>
-            {cv.prenom} {cv.nom} — {cv.email}
-            <button onClick={() => handleDelete(cv.id)}>Supprimer</button>
-            <Link to={`/cvs/${cv.id}`}>Aperçu</Link>
-          </li>
+          <div key={cv.id} className="cv-item">
+            <div>
+              <strong>{cv.prenom} {cv.nom}</strong>
+              <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--muted)' }}>{cv.email}</p>
+            </div>
+            <div className="cv-item-actions">
+              <Link to={`/cvs/${cv.id}`}>Aperçu</Link>
+              <Link to={`/cvs/edit/${cv.id}`}>Modifier</Link>
+              <button
+                onClick={() => handleDelete(cv.id)}
+                className="btn btn-danger"
+                style={{ padding: '4px 10px', fontSize: 12 }}
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     )}
   </div>
 );

@@ -94,113 +94,127 @@ export function CreateCv() {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
+ return (
+  <div className="page">
+    <div className="card">
       <h2>Créer un CV</h2>
 
-      {erreur && <p style={{ color: 'red' }}>{erreur}</p>}
+      {erreur && <p className="error-message">{erreur}</p>}
 
-      <div>
-        <label>Nom</label>
-        <input value={nom} onChange={(e) => setNom(e.target.value)} required />
-      </div>
-      <div>
-        <label>Prénom</label>
-        <input value={prenom} onChange={(e) => setPrenom(e.target.value)} required />
-      </div>
-      <div>
-        <label>Date de naissance</label>
-        <input type="date" value={dateNaissance} onChange={(e) => setDateNaissance(e.target.value)} required />
-      </div>
-      <div>
-        <label>Adresse</label>
-        <input value={adresse} onChange={(e) => setAdresse(e.target.value)} required />
-      </div>
-      <div>
-        <label>Email</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      </div>
-      <div>
-        <label>Téléphone</label>
-        <input value={telephone} onChange={(e) => setTelephone(e.target.value)} required />
-      </div>
-
-      <hr />
-      <h3>Expériences</h3>
-      {experiences.map((exp, index) => (
-        <div key={index} style={{ border: '1px solid gray', padding: 10, marginBottom: 10 }}>
-          <input
-            placeholder="Poste"
-            value={exp.poste}
-            onChange={(e) => modifierExperience(index, 'poste', e.target.value)}
-          />
-          <input
-            placeholder="Entreprise"
-            value={exp.entreprise}
-            onChange={(e) => modifierExperience(index, 'entreprise', e.target.value)}
-          />
-          <input
-            placeholder="Description"
-            value={exp.description}
-            onChange={(e) => modifierExperience(index, 'description', e.target.value)}
-          />
-          <input
-            type="date"
-            value={exp.dateDebut}
-            onChange={(e) => modifierExperience(index, 'dateDebut', e.target.value)}
-          />
-          <button type="button" onClick={() => supprimerExperience(index)}>Retirer</button>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Nom</label>
+          <input value={nom} onChange={(e) => setNom(e.target.value)} required />
         </div>
-      ))}
-      <button type="button" onClick={ajouterExperience}>+ Ajouter une expérience</button>
-
-      <hr />
-      <h3>Formations</h3>
-      {formations.map((form, index) => (
-        <div key={index} style={{ border: '1px solid gray', padding: 10, marginBottom: 10 }}>
-          <input
-            placeholder="Diplôme"
-            value={form.diplome}
-            onChange={(e) => modifierFormation(index, 'diplome', e.target.value)}
-          />
-          <input
-            placeholder="Établissement"
-            value={form.etablissement}
-            onChange={(e) => modifierFormation(index, 'etablissement', e.target.value)}
-          />
-          <input
-            type="date"
-            value={form.dateDebut}
-            onChange={(e) => modifierFormation(index, 'dateDebut', e.target.value)}
-          />
-          <button type="button" onClick={() => supprimerFormation(index)}>Retirer</button>
+        <div className="form-group">
+          <label>Prénom</label>
+          <input value={prenom} onChange={(e) => setPrenom(e.target.value)} required />
         </div>
-      ))}
-      <button type="button" onClick={ajouterFormation}>+ Ajouter une formation</button>
-
-      <hr />
-      <h3>Compétences</h3>
-      {competences.map((comp, index) => (
-        <div key={index} style={{ border: '1px solid gray', padding: 10, marginBottom: 10 }}>
-          <input
-            placeholder="Nom"
-            value={comp.nom}
-            onChange={(e) => modifierCompetence(index, 'nom', e.target.value)}
-          />
-          <input
-            type="number"
-            min={1}
-            max={5}
-            value={comp.niveau}
-            onChange={(e) => modifierCompetence(index, 'niveau', Number(e.target.value))}
-          />
-          <button type="button" onClick={() => supprimerCompetence(index)}>Retirer</button>
+        <div className="form-group">
+          <label>Date de naissance</label>
+          <input type="date" value={dateNaissance} onChange={(e) => setDateNaissance(e.target.value)} required />
         </div>
-      ))}
-      <button type="button" onClick={ajouterCompetence}>+ Ajouter une compétence</button>
+        <div className="form-group">
+          <label>Adresse</label>
+          <input value={adresse} onChange={(e) => setAdresse(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Téléphone</label>
+          <input value={telephone} onChange={(e) => setTelephone(e.target.value)} required />
+        </div>
 
-      <hr />
-      <button type="submit">Créer le CV</button>
-    </form>
-  );
+        <h3>Expériences</h3>
+        {experiences.map((exp, index) => (
+          <div key={index} className="section-block">
+            <input
+              placeholder="Poste"
+              value={exp.poste}
+              onChange={(e) => modifierExperience(index, 'poste', e.target.value)}
+            />
+            <input
+              placeholder="Entreprise"
+              value={exp.entreprise}
+              onChange={(e) => modifierExperience(index, 'entreprise', e.target.value)}
+            />
+            <input
+              placeholder="Description"
+              value={exp.description}
+              onChange={(e) => modifierExperience(index, 'description', e.target.value)}
+            />
+            <input
+              type="date"
+              value={exp.dateDebut}
+              onChange={(e) => modifierExperience(index, 'dateDebut', e.target.value)}
+            />
+            <button type="button" onClick={() => supprimerExperience(index)} className="btn btn-danger">
+              Retirer
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={ajouterExperience} className="btn btn-secondary" style={{ color: 'var(--ink)', border: '1px solid var(--border)', marginBottom: 20 }}>
+          + Ajouter une expérience
+        </button>
+
+        <h3>Formations</h3>
+        {formations.map((form, index) => (
+          <div key={index} className="section-block">
+            <input
+              placeholder="Diplôme"
+              value={form.diplome}
+              onChange={(e) => modifierFormation(index, 'diplome', e.target.value)}
+            />
+            <input
+              placeholder="Établissement"
+              value={form.etablissement}
+              onChange={(e) => modifierFormation(index, 'etablissement', e.target.value)}
+            />
+            <input
+              type="date"
+              value={form.dateDebut}
+              onChange={(e) => modifierFormation(index, 'dateDebut', e.target.value)}
+            />
+            <button type="button" onClick={() => supprimerFormation(index)} className="btn btn-danger">
+              Retirer
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={ajouterFormation} className="btn btn-secondary" style={{ color: 'var(--ink)', border: '1px solid var(--border)', marginBottom: 20 }}>
+          + Ajouter une formation
+        </button>
+
+        <h3>Compétences</h3>
+        {competences.map((comp, index) => (
+          <div key={index} className="section-block">
+            <input
+              placeholder="Nom"
+              value={comp.nom}
+              onChange={(e) => modifierCompetence(index, 'nom', e.target.value)}
+            />
+            <input
+              type="number"
+              min={1}
+              max={5}
+              value={comp.niveau}
+              onChange={(e) => modifierCompetence(index, 'niveau', Number(e.target.value))}
+            />
+            <button type="button" onClick={() => supprimerCompetence(index)} className="btn btn-danger">
+              Retirer
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={ajouterCompetence} className="btn btn-secondary" style={{ color: 'var(--ink)', border: '1px solid var(--border)', marginBottom: 20 }}>
+          + Ajouter une compétence
+        </button>
+
+        <div>
+          <button type="submit" className="btn btn-primary">Créer le CV</button>
+        </div>
+      </form>
+    </div>
+  </div>
+);
 }

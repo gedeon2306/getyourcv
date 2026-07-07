@@ -5,6 +5,7 @@ import { Register } from './pages/Register';
 import { CvList } from './pages/CvList';
 import { CreateCv } from './pages/CreateCv';
 import { CvPreview } from './pages/CvPreview';
+import { EditCv } from './pages/EditCv';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { token } = useAuth();
@@ -45,6 +46,17 @@ function AppRoutes() {
               </ProtectedRoute>
             }
           />
+
+
+          <Route
+            path="/cvs/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditCv />
+              </ProtectedRoute>
+            }
+          />
+
 
     </Routes>
   );
