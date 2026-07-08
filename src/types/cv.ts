@@ -34,6 +34,12 @@ export interface CvDto {
   experiences: ExperienceDto[];
   formations: FormationDto[];
   competences: CompetenceDto[];
+  situationMatrimoniale: string;
+  loisirs: string;
+  nationalite: string;
+  permis: string;
+  resume: string;
+  langues: LangueDto[];
 }
 
 export interface CreateCvDto {
@@ -46,4 +52,17 @@ export interface CreateCvDto {
   experiences: Omit<ExperienceDto, 'id' | 'enCours'>[];
   formations: Omit<FormationDto, 'id' | 'enCours'>[];
   competences: Omit<CompetenceDto, 'id'>[];
+  situationMatrimoniale: string;
+  loisirs: string;
+  nationalite: string;
+  permis: string;
+  resume: string;
+  langues: Omit<LangueDto, 'id'>[];
+}
+
+
+export interface LangueDto {
+  id: number;
+  nom: string;
+  niveau: number;
 }

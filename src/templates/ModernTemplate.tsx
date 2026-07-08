@@ -9,8 +9,8 @@ export function ModernTemplate({ cv }: Props) {
     <div style={{ display: 'flex', fontFamily: "'Inter', Arial, sans-serif", maxWidth: 800, margin: '0 auto', background: 'white' }}>
       {/* Sidebar */}
       <aside style={{ background: '#12233a', color: '#f7f5ef', padding: 28, width: 260 }}>
-       <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 24, marginBottom: 2, color: '#f7f5ef' }}>{cv.prenom}</h1>
-<h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 24, marginBottom: 20, color: '#f7f5ef' }}>{cv.nom}</h1>
+        <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 24, marginBottom: 2, color: '#f7f5ef' }}>{cv.prenom}</h1>
+        <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 24, marginBottom: 20, color: '#f7f5ef' }}>{cv.nom}</h1>
 
         <div style={{ height: 2, background: '#d9a441', width: 40, marginBottom: 20 }} />
 
@@ -21,7 +21,7 @@ export function ModernTemplate({ cv }: Props) {
         </div>
 
         {cv.competences.length > 0 && (
-          <div>
+          <div style={{ marginBottom: 24 }}>
             <h3 style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#d9a441', borderBottom: '1px solid rgba(247,245,239,0.2)', paddingBottom: 6, marginBottom: 14 }}>
               Compétences
             </h3>
@@ -42,10 +42,50 @@ export function ModernTemplate({ cv }: Props) {
             ))}
           </div>
         )}
+
+        {cv.langues.length > 0 && (
+          <div style={{ marginBottom: 24 }}>
+            <h3 style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#d9a441', borderBottom: '1px solid rgba(247,245,239,0.2)', paddingBottom: 6, marginBottom: 14 }}>
+              Langues
+            </h3>
+            {cv.langues.map((langue) => (
+              <div key={langue.id} style={{ marginBottom: 12 }}>
+                <p style={{ fontSize: 13, marginBottom: 4 }}>{langue.nom}</p>
+                <div style={{ background: 'rgba(247,245,239,0.15)', height: 4, borderRadius: 2 }}>
+                  <div
+                    style={{
+                      background: '#d9a441',
+                      height: 4,
+                      borderRadius: 2,
+                      width: `${(langue.niveau / 5) * 100}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {(cv.situationMatrimoniale || cv.nationalite || cv.permis) && (
+          <div>
+            <h3 style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#d9a441', borderBottom: '1px solid rgba(247,245,239,0.2)', paddingBottom: 6, marginBottom: 14 }}>
+              Informations
+            </h3>
+            <div style={{ fontSize: 12, lineHeight: 1.8, opacity: 0.9 }}>
+              {cv.situationMatrimoniale && <p style={{ margin: 0 }}>{cv.situationMatrimoniale}</p>}
+              {cv.nationalite && <p style={{ margin: 0 }}>{cv.nationalite}</p>}
+              {cv.permis && <p style={{ margin: 0 }}>Permis {cv.permis}</p>}
+            </div>
+          </div>
+        )}
       </aside>
 
       {/* Contenu principal */}
       <main style={{ padding: 28, flex: 1 }}>
+        {cv.resume && (
+          <p style={{ fontStyle: 'italic', color: '#374151', marginBottom: 20, fontSize: 13 }}>{cv.resume}</p>
+        )}
+
         {cv.experiences.length > 0 && (
           <section style={{ marginBottom: 28 }}>
             <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#1f4e79', marginBottom: 14 }}>
@@ -64,7 +104,7 @@ export function ModernTemplate({ cv }: Props) {
         )}
 
         {cv.formations.length > 0 && (
-          <section>
+          <section style={{ marginBottom: 28 }}>
             <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#1f4e79', marginBottom: 14 }}>
               Formations
             </h2>
@@ -76,6 +116,15 @@ export function ModernTemplate({ cv }: Props) {
                 </p>
               </div>
             ))}
+          </section>
+        )}
+
+        {cv.loisirs && (
+          <section>
+            <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#1f4e79', marginBottom: 14 }}>
+              Loisirs
+            </h2>
+            <p style={{ fontSize: 13, color: '#374151' }}>{cv.loisirs}</p>
           </section>
         )}
       </main>

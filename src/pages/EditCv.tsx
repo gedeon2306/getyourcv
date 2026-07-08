@@ -23,6 +23,13 @@ export function EditCv() {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [formations, setFormations] = useState<Formation[]>([]);
   const [competences, setCompetences] = useState<Competence[]>([]);
+  const [situationMatrimoniale, setSituationMatrimoniale] = useState('');
+  const [loisirs, setLoisirs] = useState('');
+  const [nationalite, setNationalite] = useState('');
+  const [permis, setPermis] = useState('');
+  const [resume, setResume] = useState('');
+
+  const [langues, setLangues] = useState<CreateCvDto['langues']>([]);
 
   useEffect(() => {
     if (id) {
@@ -51,6 +58,12 @@ export function EditCv() {
           }))
         );
         setCompetences(cv.competences.map((c) => ({ nom: c.nom, niveau: c.niveau })));
+        setSituationMatrimoniale(cv.situationMatrimoniale);
+        setLoisirs(cv.loisirs);
+        setNationalite(cv.nationalite);
+        setPermis(cv.permis);
+        setResume(cv.resume);
+        setLangues(cv.langues.map((l) => ({ nom: l.nom, niveau: l.niveau })));
         setChargement(false);
       });
     }
@@ -74,6 +87,12 @@ export function EditCv() {
     setCompetences(copie);
   };
 
+  const modifierLangue = (index: number, champ: 'nom' | 'niveau', valeur: string | number) => {
+  const copie = [...langues];
+  copie[index] = { ...copie[index], [champ]: valeur };
+  setLangues(copie);
+};
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErreur('');
@@ -89,12 +108,20 @@ export function EditCv() {
         experiences,
         formations,
         competences,
+      situationMatrimoniale,
+      loisirs,
+      nationalite,
+      permis,
+      resume,
+      langues,
       });
       navigate('/cvs');
     } catch (err) {
       setErreur('Erreur lors de la modification du CV.');
     }
   };
+
+
 
   if (chargement) return <p>Chargement...</p>;
 
@@ -130,7 +157,26 @@ return (
             <label>Téléphone</label>
             <input value={telephone} onChange={(e) => setTelephone(e.target.value)} required />
           </div>
-
+            <div className="form-group">
+            <label>Résumé / Titre professionnel</label>
+            <input value={resume} onChange={(e) => setResume(e.target.value)} placeholder="ex: Développeur Full-Stack" />
+          </div>
+          <div className="form-group">
+            <label>Situation matrimoniale</label>
+            <input value={situationMatrimoniale} onChange={(e) => setSituationMatrimoniale(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Nationalité</label>
+            <input value={nationalite} onChange={(e) => setNationalite(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Permis</label>
+            <input value={permis} onChange={(e) => setPermis(e.target.value)} placeholder="ex: B" />
+          </div>
+          <div className="form-group">
+            <label>Loisirs</label>
+            <input value={loisirs} onChange={(e) => setLoisirs(e.target.value)} />
+          </div>
           <h3>Expériences</h3>
           {experiences.map((exp, index) => (
             <div key={index} className="section-block">
@@ -192,6 +238,24 @@ return (
                 max={5}
                 value={comp.niveau}
                 onChange={(e) => modifierCompetence(index, 'niveau', Number(e.target.value))}
+              />
+            </div>
+          ))}
+
+          <h3>Langues</h3>
+          {langues.map((langue, index) => (
+            <div key={index} className="section-block">
+              <input
+                placeholder="Nom de la langue"
+                value={langue.nom}
+                onChange={(e) => modifierLangue(index, 'nom', e.target.value)}
+              />
+              <input
+                type="number"
+                min={1}
+                max={5}
+                value={langue.niveau}
+                onChange={(e) => modifierLangue(index, 'niveau', Number(e.target.value))}
               />
             </div>
           ))}
