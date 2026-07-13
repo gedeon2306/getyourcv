@@ -25,7 +25,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* Variante rouge, utilisable partout à côté de --primary et --ghost */
 .landing-btn--danger {
   background: transparent;
   color: #e07a63;

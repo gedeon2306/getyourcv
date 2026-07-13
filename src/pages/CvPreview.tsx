@@ -3,14 +3,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import type { CvDto } from '../types/cv';
 import { ClassicTemplate } from '../templates/ClassicTemplate';
 import { ModernTemplate } from '../templates/ModernTemplate';
+import { CreativeTemplate } from '../templates/CreativeTemplate';
 import { getCvById, downloadCvPdf } from '../api/cvApi';
 import { FiArrowLeft, FiDownload } from 'react-icons/fi';
 
-type TemplateKey = 'classic' | 'modern';
+type TemplateKey = 'classic' | 'modern' | 'creative';
 
 const TEMPLATES: { key: TemplateKey; label: string; Component: React.ComponentType<{ cv: CvDto }> }[] = [
   { key: 'classic', label: 'Modèle Classique', Component: ClassicTemplate },
   { key: 'modern', label: 'Modèle Moderne', Component: ModernTemplate },
+  { key: 'creative', label: 'Modèle Créatif', Component: CreativeTemplate },
 ];
 
 export function CvPreview() {
