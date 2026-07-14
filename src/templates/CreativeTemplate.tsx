@@ -1,10 +1,10 @@
 import type { CvDto } from '../types/cv';
+import { formaterDate } from '../utils/data';
 
 interface Props {
   cv: CvDto;
 }
 
-// Palette de couleurs pour les tags (compétences/langues), en rotation
 const TAG_COLORS = ['#d9a441', '#1f4e79', '#5b8c7b'];
 
 function tagColor(index: number) {
@@ -169,7 +169,7 @@ export function CreativeTemplate({ cv }: Props) {
                     />
                     <strong style={{ color: '#12233a', fontSize: 15 }}>{exp.poste}</strong>
                     <p style={{ fontSize: 12, color: '#6b7280', fontFamily: "'JetBrains Mono', monospace", margin: '2px 0 6px' }}>
-                      {exp.entreprise} · {exp.dateDebut} → {exp.enCours ? 'En cours' : exp.dateFin}
+                      {exp.entreprise} · {formaterDate(exp.dateDebut)} → {exp.enCours ? 'En cours' : formaterDate(exp.dateFin)}
                     </p>
                     <p style={{ fontSize: 14, color: '#374151', margin: 0 }}>{exp.description}</p>
                   </div>
@@ -202,7 +202,7 @@ export function CreativeTemplate({ cv }: Props) {
                     />
                     <strong style={{ color: '#12233a', fontSize: 15 }}>{formation.diplome}</strong>
                     <p style={{ fontSize: 12, color: '#6b7280', fontFamily: "'JetBrains Mono', monospace", margin: '2px 0 0' }}>
-                      {formation.etablissement} · {formation.dateDebut} → {formation.enCours ? 'En cours' : formation.dateFin}
+                      {formation.etablissement} · {formaterDate(formation.dateDebut)} → {formation.enCours ? 'En cours' : formaterDate(formation.dateFin)}
                     </p>
                   </div>
                 ))}
