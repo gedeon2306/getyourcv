@@ -1,4 +1,5 @@
 import type { CvDto } from '../types/cv';
+import { formaterDate } from '../utils/data';
 
 interface Props {
   cv: CvDto;
@@ -33,7 +34,7 @@ export function ClassicTemplate({ cv }: Props) {
             <div key={exp.id} style={{ marginBottom: 16, paddingLeft: 14, borderLeft: '2px solid #d8d3c5' }}>
               <strong style={{ color: '#12233a', fontSize: 15 }}>{exp.poste} — {exp.entreprise}</strong>
               <p style={{ fontSize: 12, color: '#6b7280', fontFamily: "'JetBrains Mono', monospace", margin: '2px 0 6px' }}>
-                {exp.dateDebut} → {exp.enCours ? 'En cours' : exp.dateFin}
+                {formaterDate(exp.dateDebut)} → {exp.enCours ? 'En cours' : formaterDate(exp.dateFin)}
               </p>
               <p style={{ fontSize: 14, color: '#374151', margin: 0 }}>{exp.description}</p>
             </div>
@@ -50,7 +51,7 @@ export function ClassicTemplate({ cv }: Props) {
             <div key={formation.id} style={{ marginBottom: 16, paddingLeft: 14, borderLeft: '2px solid #d8d3c5' }}>
               <strong style={{ color: '#12233a', fontSize: 15 }}>{formation.diplome} — {formation.etablissement}</strong>
               <p style={{ fontSize: 12, color: '#6b7280', fontFamily: "'JetBrains Mono', monospace", margin: '2px 0 0' }}>
-                {formation.dateDebut} → {formation.enCours ? 'En cours' : formation.dateFin}
+                {formaterDate(formation.dateDebut)} → {formation.enCours ? 'En cours' : formaterDate(formation.dateFin)}
               </p>
             </div>
           ))}
