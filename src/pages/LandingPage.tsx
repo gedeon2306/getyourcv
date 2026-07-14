@@ -9,8 +9,10 @@ import {
   FiTwitter,
   FiLinkedin,
 } from 'react-icons/fi';
+import { FaRegFilePdf } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import logo from '../assets/favicon.png';
+import { useAuth } from '../context/AuthContext';
 
 type CSSVarStyle = CSSProperties & { '--p'?: string };
 
@@ -48,6 +50,7 @@ function Reveal({ children, className = '' }: RevealProps) {
 
 export function LandingPage() {
   const [atsScore, setAtsScore] = useState(0);
+  const { token } = useAuth();
 
   useEffect(() => {
     const target = 98;
@@ -73,8 +76,9 @@ export function LandingPage() {
         <div className="landing-nav__brand">
           <img src={logo} alt="Logo" className="landing-nav__logo" />
         </div>
-        <Link to="/login" className="landing-btn landing-btn--ghost">
-          Essayer gratuitement
+        <Link to={token ? "/cvs" : "/login"} className="landing-btn landing-btn--ghost">
+          {token ? 'Voir mes CV' : 'Se connecter'}
+          {token ? <FaRegFilePdf /> : <FiArrowRight />}
         </Link>
       </header>
 
@@ -91,8 +95,8 @@ export function LandingPage() {
             par les recruteurs que par les logiciels de tri.
           </p>
           <div className="landing-hero__actions">
-            <Link to="/login" className="landing-btn landing-btn--primary">
-              Essayer maintenant <FiArrowRight />
+            <Link to={token ? "/cvs" : "/login"} className="landing-btn landing-btn--primary">
+              {token ? 'Commencer' : 'Essayer gratuitement'} <FiArrowRight />
             </Link>
           </div>
           <ul className="landing-trust">
@@ -229,8 +233,8 @@ export function LandingPage() {
       <Reveal className="landing-cta">
         <h2>Prêt à créer votre prochain CV ?</h2>
         <p>Commencez gratuitement, aucune inscription par carte bancaire.</p>
-        <Link to="/login" id="essayer" className="landing-btn landing-btn--primary landing-btn--lg">
-          Essayer gratuitement <FiArrowRight />
+        <Link to={token ? "/cvs" : "/login"} id="essayer" className="landing-btn landing-btn--primary landing-btn--lg">
+          {token ? 'Commencer' : 'Se connecter'} <FiArrowRight />
         </Link>
       </Reveal>
 
