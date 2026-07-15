@@ -10,6 +10,7 @@ import logo from '../assets/favicon.png';
 export function CvList() {
   const [cvs, setCvs] = useState<CvDto[]>([]);
   const [chargement, setChargement] = useState(true);
+  const [erreur, setErreur] = useState('');
   const { logout } = useAuth();
 
   useEffect(() => {
@@ -28,8 +29,14 @@ export function CvList() {
   };
 
   const handleDelete = async (id: number) => {
-    await deleteCv(id);
-    chargerCvs();
+    try {
+      setErreur('');
+      await deleteCv(id);
+      await chargerCvs();
+    } catch (err) {
+      console.error('Erreur lors de la suppression du CV', err);
+      setErreur('La suppression du CV a échoué.');
+    }
   };
 
   if (chargement) {
@@ -54,6 +61,8 @@ export function CvList() {
           <FiPlus /> Créer un nouveau CV
         </Link>
       </div>
+
+      {erreur && <p className="error-message">{erreur}</p>}
 
       {cvs.length === 0 ? (
         <div className="dashboard-empty">
