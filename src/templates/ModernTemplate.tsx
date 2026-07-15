@@ -1,5 +1,6 @@
 import type { CvDto } from '../types/cv';
 import { formaterDate } from '../utils/data';
+import { getNiveauLabel } from '../utils/niveauLangue';
 
 interface Props {
   cv: CvDto;
@@ -74,7 +75,9 @@ export function ModernTemplate({ cv }: Props) {
             </h3>
             {cv.langues.map((langue) => (
               <div key={langue.id} style={{ marginBottom: 12 }}>
-                <p style={{ fontSize: 13, marginBottom: 4, color: '#f7f5ef' }}>{langue.nom}</p>
+                <p style={{ fontSize: 13, marginBottom: 4, color: '#f7f5ef' }}>
+                  {langue.nom} <span style={{ opacity: 0.7, fontSize: 11 }}>— {getNiveauLabel(langue.niveau)}</span>
+                </p>
                 <div style={{ background: 'rgba(247,245,239,0.15)', height: 4, borderRadius: 2 }}>
                   <div
                     style={{

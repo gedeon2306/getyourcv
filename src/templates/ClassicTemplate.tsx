@@ -1,5 +1,6 @@
 import type { CvDto } from '../types/cv';
 import { formaterDate } from '../utils/data';
+import { getNiveauLabel } from '../utils/niveauLangue';
 
 interface Props {
   cv: CvDto;
@@ -103,7 +104,7 @@ export function ClassicTemplate({ cv }: Props) {
                   fontFamily: "'JetBrains Mono', monospace",
                 }}
               >
-                {langue.nom} · {langue.niveau}/5
+                {langue.nom} · {getNiveauLabel(langue.niveau)}
               </span>
             ))}
           </div>
