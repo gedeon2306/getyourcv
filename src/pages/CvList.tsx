@@ -7,11 +7,14 @@ import { FiPlus, FiEye, FiEdit2, FiTrash2, FiLogOut, FiFileText } from 'react-ic
 // import { FaRegFilePdf } from "react-icons/fa6";
 import logo from '../assets/favicon.png';
 
+import { Choose } from './Choose';
+
 export function CvList() {
   const [cvs, setCvs] = useState<CvDto[]>([]);
   const [chargement, setChargement] = useState(true);
   const [erreur, setErreur] = useState('');
   const { logout } = useAuth();
+  const [showChoose, setShowChoose] = useState(false);
 
   useEffect(() => {
     chargerCvs();
@@ -57,10 +60,12 @@ export function CvList() {
       </div>
 
       <div className="dashboard-cta">
-        <Link to="/cvs/new" className="landing-btn landing-btn--primary">
+        <button onClick={() => setShowChoose(true)} className="landing-btn landing-btn--primary">
           <FiPlus /> Créer un nouveau CV
-        </Link>
+        </button>
       </div>
+
+      <Choose isOpen={showChoose} onClose={() => setShowChoose(false)} />
 
       {erreur && <p className="error-message">{erreur}</p>}
 
