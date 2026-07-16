@@ -7,14 +7,17 @@ import { FiPlus, FiEye, FiEdit2, FiTrash2, FiLogOut, FiFileText } from 'react-ic
 // import { FaRegFilePdf } from "react-icons/fa6";
 import logo from '../assets/favicon.png';
 
-import { Choose } from './Choose';
+import { ChooseCreate } from '../components/Choose';
+import { ChooseEdit } from '../components/Choose';
 
 export function CvList() {
   const [cvs, setCvs] = useState<CvDto[]>([]);
   const [chargement, setChargement] = useState(true);
   const [erreur, setErreur] = useState('');
   const { logout } = useAuth();
-  const [showChoose, setShowChoose] = useState(false);
+  const [showChooseCreate, setShowChooseCreate] = useState(false);
+  const [showChooseEdit, setShowChooseEdit] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
 
   useEffect(() => {
     chargerCvs();
@@ -60,12 +63,14 @@ export function CvList() {
       </div>
 
       <div className="dashboard-cta">
-        <button onClick={() => setShowChoose(true)} className="landing-btn landing-btn--primary">
+        <button onClick={() => setShowChooseCreate(true)} className="landing-btn landing-btn--primary">
           <FiPlus /> Créer un nouveau CV
         </button>
       </div>
 
-      <Choose isOpen={showChoose} onClose={() => setShowChoose(false)} />
+      <ChooseCreate isOpen={showChooseCreate} onClose={() => setShowChooseCreate(false)} id={null} />
+
+      <ChooseEdit isOpen={showChooseEdit} onClose={() => setShowChooseEdit(false)} id={editId} />
 
       {erreur && <p className="error-message">{erreur}</p>}
 
@@ -89,9 +94,12 @@ export function CvList() {
                 <Link to={`/cvs/${cv.id}`} className="cv-action">
                   <FiEye /> Aperçu
                 </Link>
-                <Link to={`/cvs/edit/${cv.id}`} className="cv-action">
+                <button onClick={() => {
+                  setShowChooseEdit(true);
+                  setEditId(cv.id);
+                }} className="cv-action">
                   <FiEdit2 /> Modifier
-                </Link>
+                </button>
                 <button onClick={() => handleDelete(cv.id)} className="cv-action cv-action--danger">
                   <FiTrash2 /> Supprimer
                 </button>

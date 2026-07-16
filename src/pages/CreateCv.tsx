@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { createCv, uploadCvPhoto } from '../api/cvApi';
 import type { CreateCvDto, CvDto } from '../types/cv';
+import { FiSave, FiArrowLeft } from 'react-icons/fi';
 
 // Importation des modèles pour l'aperçu en direct
 import { ClassicTemplate } from '../templates/ClassicTemplate';
 import { ModernTemplate } from '../templates/ModernTemplate';
 import { CreativeTemplate } from '../templates/CreativeTemplate';
-import { FiSave, FiArrowLeft } from 'react-icons/fi';
 
 type Experience = CreateCvDto['experiences'][number];
 type Formation = CreateCvDto['formations'][number];
@@ -47,6 +47,7 @@ export function CreateCv() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string>('');
   const [erreur, setErreur] = useState('');
+  const [uploadError, setUploadError] = useState('');
   const [envoiEncours, setenvoiEncours] = useState(false);
 
   // --- État des onglets et détection mobile ---
